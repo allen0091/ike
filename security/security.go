@@ -5,12 +5,14 @@ import (
 	"crypto/rand"
 	"encoding/binary"
 	"encoding/hex"
+	"fmt"
 	"hash"
 	"io"
 	"math/big"
 	"strconv"
 	"strings"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/pkg/errors"
 
 	"github.com/free5gc/ike/message"
@@ -180,6 +182,9 @@ func NewIKESAKey(
 	if err != nil {
 		return nil, nil, errors.Wrapf(err, "NewIKESAKey")
 	}
+
+	fmt.Printf("localSPI[0x%016x] remoteSPI[0x%016x] sharedKeyData: %s\n",
+		initiatorSPI, responderSPI, spew.Sdump(sharedKeyData))
 
 	err = ikesaKey.GenerateKeyForIKESA(concatenatedNonce, sharedKeyData,
 		initiatorSPI, responderSPI)
