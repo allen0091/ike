@@ -22,7 +22,9 @@ func TestNewAndMarshalIKEHeader(t *testing.T) {
 		NextPayload:  uint8(NoNext),
 	}, ikeHdr)
 	require.True(t, ikeHdr.IsInitiator())
+	require.False(t, ikeHdr.IsResponder())
 	require.False(t, ikeHdr.IsResponse())
+	require.True(t, ikeHdr.IsRequest())
 
 	b, err := ikeHdr.Marshal()
 	require.NoError(t, err)
