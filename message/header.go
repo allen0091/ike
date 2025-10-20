@@ -78,8 +78,16 @@ func (h *IKEHeader) IsResponse() bool {
 	return (h.Flags & ResponseBitCheck) != 0
 }
 
+func (h *IKEHeader) IsRequest() bool {
+	return !h.IsResponse()
+}
+
 func (h *IKEHeader) IsInitiator() bool {
 	return (h.Flags & InitiatorBitCheck) != 0
+}
+
+func (h *IKEHeader) IsResponder() bool {
+	return !h.IsInitiator()
 }
 
 func ParseHeader(b []byte) (*IKEHeader, error) {
